@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\student;
 use App\Models\training_opp;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Company;
 use Illuminate\Support\Facades\Auth;
@@ -48,8 +49,8 @@ class CompanyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        return Company::findorfail($id);
+    {if(Auth::user()->id==$id){
+        return Company::findorfail($id);}
     }
 
     /**
@@ -74,7 +75,9 @@ class CompanyController extends Controller
     {
         $id= Auth::user()->id;
         $c=Company::findorfail($id);
+        $u=User::findorfail($id);
         $c->update($request->all());
+        $u->update($request->all());
     }
 
     /**

@@ -123,6 +123,8 @@ class TrainingOpp extends Controller
     public function destroy($id)
     {
         $t=Training_opp::findorfail($id);
-        $t->delete();
+        $t->students()->detach();
+        $t->delete(); 
+        
     }
 }

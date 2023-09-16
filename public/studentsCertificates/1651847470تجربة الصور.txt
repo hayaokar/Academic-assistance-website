@@ -1,0 +1,126 @@
+
+import React , {Component,useState} from 'react';
+import './style.css'
+import axios from 'axios';
+import {Link,useHistory} from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.css'; 
+//to get info from API :
+async function get() {
+  try {
+    const response = await axios.get('https://api.unsplash.com/photos/?client_id=L6zrp6vqx1ee5ge4axr4rhFcxyFfdjh8yyTGnkwX7PA');
+    
+    
+    console.log(response.data);
+    
+  } catch (error) {
+    console.error(error);
+    
+  }
+}
+
+
+ 
+class ScholarShip1 extends Component{
+  
+  state = {
+    users: [],
+    images: []
+  }
+  Indiv=({image})=>{
+    return(
+      <div className='photos'>
+<img src={image.urls.small} alt=""/>
+      </div>
+    )
+  }
+  Images=({images})=>{
+    console.log(images)
+    return images.map((image)=>(<this.Indiv key={image.id} image={image} />))
+  }
+  componentDidMount =()=>{
+    get().then(response => {
+      this.setState({
+        images: response.data
+      });
+    });
+  }
+ 
+  render() {
+      return( 
+
+      <div className="city" >
+       <h2 className="mainTitle">Countries</h2><br/>
+      <div className="container">
+      
+     {this.state.images.map(images=>
+        <div className="box" >
+        {images.length>0&&(<this.Images images={images}/>)}
+             
+             <div className="info">
+             <Link to="/sc"><button>{images}</button></Link>
+             </div>
+        </div>
+            )}
+      </div>
+    </div>
+       )
+}}
+
+export default ScholarShip1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div className="container">
+     {this.state.users.map(user=>
+        <div className="box"  key={user.id}>
+             <img src="http://e9e9-94-47-142-70.ngrok.io/" alt="" />
+             <div className="info">
+             <Link to="/sc"><button>{user.name}</button></Link>
+             </div>
+        </div>
+            )}
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+https://stackoverflow.com/questions/61131446/react-router-v5-1-2-public-protected-authenticated-role-based-routes
+
+
+
+https://stackoverflow.com/questions/66289122/how-to-create-a-protected-route

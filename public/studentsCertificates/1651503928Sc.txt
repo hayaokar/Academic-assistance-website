@@ -1,0 +1,50 @@
+
+import React , {Component} from 'react';
+import './style.css'
+import axios from 'axios';
+import {Link,useHistory} from 'react-router-dom';
+
+//to get info from API :
+async function get() {
+  try {
+    const response = await axios.get('http://e722-185-110-104-238.ngrok.io/backEnd/public/api/getScholarShipsCountries');
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+class ScholarShip1 extends Component{
+   
+  state = {
+    users: []
+  }
+
+  componentDidMount =()=>{
+    get().then(response => {
+      this.setState({
+        users: response.data
+      });
+    });
+  }
+  render() {
+      return( 
+
+      <div className="city" >
+       <h2 className="mainTitle">Countries</h2><br/>
+      <div className="container">
+     {this.state.users.map(user=>
+        <div className="box"  key={user}>
+             <img src="image/g.jpg" alt="" />
+             <div className="info">
+             <Link to="/sc"><button>{user}</button></Link>
+             </div>
+        </div>
+            )}
+      </div>
+    </div>
+       )
+}}
+
+export default ScholarShip1;
